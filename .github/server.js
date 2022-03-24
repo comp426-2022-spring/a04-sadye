@@ -2,12 +2,15 @@
 const express = require('express')
 const app = express()
 const args = require('minimist')(process.argv.slice(2)) 
+const morgan = requrire('morgan')
 
 
 args['port', 'debug', 'log', 'help']
 const port = args.port || process.env.port || 5000// add command line argument
 const debug = args.debug || false
 const log = args.log || false
+
+app.use(morgan('combined'))
 
 const server = app.listen(port, () => {
     console.log('App is running on port %PORT%'.replace('%PORT%',port))
