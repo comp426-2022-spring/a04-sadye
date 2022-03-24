@@ -11,7 +11,7 @@ app.use(express.json());
 
 
 args['port', 'debug', 'log', 'help']
-const port = args.port || process.env.port || 5000// add command line argument
+const port = args.port || process.env.port || 5555// add command line argument
 const debug = args.debug || false
 const log = args.log || false
 
@@ -41,6 +41,29 @@ if (args.help) {
   process.exit(0)
   
 }
+
+app.use( (req, res, next) => {
+  // Your middleware goes here.
+  let logdata = {
+    remoteaddr: req.ip,
+    remoteuser: req.user,
+    time: Date.now(),
+    method: req.method,
+    url: req.url,
+    protocol: req.protocol,
+    httpversion: req.httpVersion,
+    secure: req.secure,
+    status: res.statusCode,
+    referer: req.headers['referer'],
+    useragent: req.headers['user-agent']
+  }
+  const stmt = database.prepare(`INSERT INTO accesslog (remoteaddr, 
+    remoteuser, time, method, url, protocol, httpversion, secure, 
+    status, referer, useragent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+  const info = stmt.run(logdata.remoteaddr, logdata.remoteuser, logdata.time, 
+    logdata.method, logdata.url, logdata.protocol, logdata.httpversion, logdata.secure, 
+    logdata.status, logdata.referer, logdata.useragent)
+  })
 
 
 const server = app.listen(port, () => {
