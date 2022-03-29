@@ -1,16 +1,19 @@
 
 const express = require('express')
-const res = require('express/lib/response')
 const app = express()
 const args = require('minimist')(process.argv.slice(2)) 
-const morgan = requrire('morgan')
+const morgan = require('morgan')
 const database = require('./log.js')
+const fs = require('fs')
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
-args['port', 'debug', 'log', 'help']
+args['port']
+args['debug'] 
+args['log']
+args['help']
 const port = args.port || process.env.port || 5555// add command line argument
 const debug = args.debug || false
 const log = args.log || false
