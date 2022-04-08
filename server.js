@@ -18,7 +18,7 @@ const port = args.port || process.env.port || 5555// add command line argument
 const debug = args.debug || false
 const log = args.log || false
 
-if(log){
+if(log==false){
   // Use morgan for logging to files
   // Create a write stream to append (flags: 'a') to a file
   const accessLogStrm = fs.createWriteStream('./access.log', { flags: 'a' })

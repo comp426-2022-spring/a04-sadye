@@ -34,9 +34,6 @@ if (row === undefined) {
 // Execute SQL commands that we just wrote above.
     logdb.exec(sqlInit);
 // Echo information about what we just did to the console.
-} else {
-// Since the database already exists, echo that to the console.
-    console.log('Database exists.')
 }
 // Export all of the above as a module so that we can use it elsewhere.
 module.exports = logdb
