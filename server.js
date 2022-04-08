@@ -55,7 +55,7 @@ app.use( (req, res, next) => {
     url: req.url,
     protocol: req.protocol,
     httpversion: req.httpVersion,
-    secure: req.secure.toString(),
+    secure: req.secure,
     status: res.statusCode,
     referer: req.headers['referer'],
     useragent: req.headers['user-agent']
