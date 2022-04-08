@@ -21,7 +21,7 @@ const log = args.log || false
 if(log==false){
   // Use morgan for logging to files
   // Create a write stream to append (flags: 'a') to a file
-  const accessLogStrm = fs.createWriteStream('./access.log', { flags: 'a' })
+  const accessLogStrm = fs.createWriteStream('access.log', { flags: 'a' })
   // Set up the access logging middleware
   app.use(morgan('combined', { stream: accessLogStrm }))
 }
@@ -55,7 +55,7 @@ app.use( (req, res, next) => {
     url: req.url,
     protocol: req.protocol,
     httpversion: req.httpVersion,
-    secure: req.secure,
+    secure: req.secure.toString(),
     status: res.statusCode,
     referer: req.headers['referer'],
     useragent: req.headers['user-agent']
