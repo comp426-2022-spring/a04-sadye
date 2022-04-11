@@ -23,7 +23,7 @@ const server = app.listen(port, () => {
   console.log('App is running on port %PORT%'.replace('%PORT%',port))
 })
 
-if(log=='true'){
+if(log=='false'){
   // Use morgan for logging to files
   // Create a write stream to append (flags: 'a') to a file
   const accessLogStrm = fs.createWriteStream('access.log', { flags: 'a' })
@@ -66,7 +66,7 @@ app.post( '/',(req, res, next) => {
     useragent: req.headers['user-agent']
   }
   const stmt = database.prepare(`INSERT INTO accesslog (remoteaddr, 
-    remoteuser, time, method, url, protocol, httpversion, secure, 
+    remoteuser, datetime, method, url, protocol, httpversion, secure, 
     status, referer, useragent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
 
   const info = stmt.run(logdata.remoteaddr, logdata.remoteuser, logdata.time, 
