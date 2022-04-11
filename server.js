@@ -16,8 +16,8 @@ args['debug']
 args['log']
 args['help']
 const port = args.port || process.env.port || 5555// add command line argument
-const debug = args.debug || false
-const log = args.log || true
+const debug = args.debug || 'false'
+const log = args.log || 'true'
 
 const server = app.listen(port, () => {
   console.log('App is running on port %PORT%'.replace('%PORT%',port))
