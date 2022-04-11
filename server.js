@@ -23,7 +23,7 @@ const server = app.listen(port, () => {
   console.log('App is running on port %PORT%'.replace('%PORT%',port))
 })
 
-if(log=='false'){
+if(log=='true'){
   // Use morgan for logging to files
   // Create a write stream to append (flags: 'a') to a file
   const accessLogStrm = fs.createWriteStream('access.log', { flags: 'a' })
@@ -50,7 +50,7 @@ if (args.help) {
   
 }
 
-app.post( '/',(req, res, next) => {
+app.use((req, res, next) => {
   // Your middleware goes here.
   let logdata = {
     remoteaddr: req.ip,
@@ -99,7 +99,7 @@ if (debug){
     }
   });
 
-app.get('/app/error', (err, req, res, next) => {
+  app.get('/app/error', (err, req, res, next) => {
     throw new Error('Error test successful')
   });
 }
