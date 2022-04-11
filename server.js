@@ -5,7 +5,7 @@ const args = require('minimist')(process.argv.slice(2))
 const morgan = require('morgan')
 const database = require('./log.js')
 const fs = require('fs')
-
+const md5 = requre('md5')
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -18,7 +18,11 @@ const port = args.port || process.env.port || 5555// add command line argument
 const debug = args.debug || false
 const log = args.log || false
 
-if(log==false){
+const server = app.listen(port, () => {
+  console.log('App is running on port %PORT%'.replace('%PORT%',port))
+})
+
+if(log=='true'){
   // Use morgan for logging to files
   // Create a write stream to append (flags: 'a') to a file
   const accessLogStrm = fs.createWriteStream('access.log', { flags: 'a' })
@@ -45,7 +49,7 @@ if (args.help) {
   
 }
 
-app.use( (req, res, next) => {
+app.post( '/',(req, res, next) => {
   // Your middleware goes here.
   let logdata = {
     remoteaddr: req.ip,
@@ -62,16 +66,15 @@ app.use( (req, res, next) => {
   }
   const stmt = database.prepare(`INSERT INTO accesslog (remoteaddr, 
     remoteuser, time, method, url, protocol, httpversion, secure, 
-    status, referer, useragent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`)
+    status, referer, useragent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+
   const info = stmt.run(logdata.remoteaddr, logdata.remoteuser, logdata.time, 
     logdata.method, logdata.url, logdata.protocol, logdata.httpversion, logdata.secure, 
     logdata.status, logdata.referer, logdata.useragent)
+  next()
   })
 
 
-const server = app.listen(port, () => {
-    console.log('App is running on port %PORT%'.replace('%PORT%',port))
-})
 
 
 

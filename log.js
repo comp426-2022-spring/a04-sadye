@@ -24,12 +24,12 @@ if (row === undefined) {
             time VARCHAR,
             method VARCHAR,
             url VARCHAR, 
-            protocol TEXT, 
+            protocol VARCHAR, 
             httpversion NUMERIC,
-            secure TEXT, 
+            secure INTEGER, 
             status INTEGER, 
-            referer TEXT, 
-            useragent TEXT); 
+            referer VARCHAR, 
+            useragent VARCHAR); 
     `;
 // Execute SQL commands that we just wrote above.
     logdb.exec(sqlInit);
