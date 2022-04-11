@@ -21,7 +21,7 @@ if (row === undefined) {
             id INTEGER PRIMARY KEY,
             remoteaddr VARCHAR, 
             remoteuser VARCHAR,
-            time VARCHAR,
+            datetime VARCHAR,
             method VARCHAR,
             url VARCHAR, 
             protocol VARCHAR, 
