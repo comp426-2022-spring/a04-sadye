@@ -55,7 +55,7 @@ app.use((req, res, next) => {
   let logdata = {
     remoteaddr: req.ip,
     remoteuser: req.user,
-    time: Date.now(),
+    datetime: Date.now(),
     method: req.method,
     url: req.url,
     protocol: req.protocol,
