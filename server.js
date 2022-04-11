@@ -55,7 +55,7 @@ app.use((req, res, next) => {
   let logdata = {
     remoteaddr: req.ip,
     remoteuser: req.user,
-    datetime: Date.now(),
+    time: Date.now(),
     method: req.method,
     url: req.url,
     protocol: req.protocol,
@@ -66,7 +66,7 @@ app.use((req, res, next) => {
     useragent: req.headers['user-agent']
   }
   const stmt = database.prepare(`INSERT INTO accesslog (remoteaddr, 
-    remoteuser, datetime, method, url, protocol, httpversion, secure, 
+    remoteuser, time, method, url, protocol, httpversion, secure, 
     status, referer, useragent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
 
   const info = stmt.run(logdata.remoteaddr, logdata.remoteuser, logdata.time, 
