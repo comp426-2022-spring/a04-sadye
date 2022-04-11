@@ -5,7 +5,7 @@ const args = require('minimist')(process.argv.slice(2))
 const morgan = require('morgan')
 const database = require('./log.js')
 const fs = require('fs')
-const md5 = requre('md5')
+const md5 = require('md5')
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -15,8 +15,8 @@ args['debug']
 args['log']
 args['help']
 const port = args.port || process.env.port || 5555// add command line argument
-const debug = args.debug || false
-const log = args.log || false
+const debug = args.debug || 'false'
+const log = args.log || 'false'
 
 const server = app.listen(port, () => {
   console.log('App is running on port %PORT%'.replace('%PORT%',port))
