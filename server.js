@@ -99,9 +99,8 @@ if (debug){
     }
   });
 
-  app.get('/app/error', (err, req, res, next) => {
-    console.error(err.stack)
-    res.status(500).send('Error test successful')
+app.get('/app/error', (err, req, res, next) => {
+    throw new Error('Error test successful')
   });
 }
 
